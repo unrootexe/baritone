@@ -58,6 +58,7 @@ public final class PathRenderer implements IRenderer {
             ((GuiClick) Helper.mc.currentScreen).onRender();
         }
 
+        // TODO: check if server is the same, not just world
         int thisPlayerDimension = behavior.baritone.getPlayerContext().world().provider.getDimensionType().getId();
         int currentRenderViewDimension = BaritoneAPI.getProvider().getPrimaryBaritone().getPlayerContext().world().provider.getDimensionType().getId();
 

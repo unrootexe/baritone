@@ -18,6 +18,7 @@
 package baritone.event;
 
 import baritone.Baritone;
+import baritone.api.BaritoneAPI;
 import baritone.api.event.events.*;
 import baritone.api.event.events.type.EventState;
 import baritone.api.event.listener.IEventBus;
@@ -104,7 +105,10 @@ public final class GameEventHandler implements IEventBus, Helper {
 
     @Override
     public final void onRenderPass(RenderEvent event) {
-        listeners.forEach(l -> l.onRenderPass(event));
+        // rendering other baritones while main world is null causes a crash
+        if (Helper.mc.world != null && BaritoneAPI.getProvider().getPrimaryBaritone() != null) {
+            listeners.forEach(l -> l.onRenderPass(event));
+        }
     }
 
     @Override

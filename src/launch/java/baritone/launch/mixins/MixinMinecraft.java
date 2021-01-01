@@ -110,13 +110,16 @@ public class MixinMinecraft {
         }
 
         // mc.world changing is only the primary baritone
-
-        BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onWorldEvent(
-                new WorldEvent(
-                        world,
-                        EventState.PRE
-                )
-        );
+        // implementing the same null-safe check as for postLoadWorld, not sure if necessary
+        IBaritone primaryBaritone = BaritoneAPI.getProvider().getPrimaryBaritone();
+        if (primaryBaritone != null) {
+            primaryBaritone.getGameEventHandler().onWorldEvent(
+                    new WorldEvent(
+                            world,
+                            EventState.PRE
+                    )
+            );
+        }
     }
 
     @Inject(
@@ -127,12 +130,16 @@ public class MixinMinecraft {
         // still fire event for both null, as that means we've just finished exiting a world
 
         // mc.world changing is only the primary baritone
-        BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onWorldEvent(
-                new WorldEvent(
-                        world,
-                        EventState.POST
-                )
-        );
+        // needs a null check for when there is no mc.player, meaning no primary baritone
+        IBaritone primaryBaritone = BaritoneAPI.getProvider().getPrimaryBaritone();
+        if (primaryBaritone != null) {
+            primaryBaritone.getGameEventHandler().onWorldEvent(
+                    new WorldEvent(
+                            world,
+                            EventState.POST
+                    )
+            );
+        }
     }
 
     @Redirect(
@@ -145,7 +152,7 @@ public class MixinMinecraft {
     )
     private boolean isAllowUserInput(GuiScreen screen) {
         // allow user input is only the primary baritone
-        return (BaritoneAPI.getProvider().getPrimaryBaritone().getPathingBehavior().isPathing() && player != null) || screen.allowUserInput;
+        return (BaritoneAPI.getProvider().getPrimaryBaritone() != null && BaritoneAPI.getProvider().getPrimaryBaritone().getPathingBehavior().isPathing() && player != null) || screen.allowUserInput;
     }
 
     @Inject(
