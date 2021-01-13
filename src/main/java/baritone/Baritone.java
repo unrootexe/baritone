@@ -25,6 +25,7 @@ import baritone.api.utils.Helper;
 import baritone.api.utils.IPlayerContext;
 import baritone.behavior.*;
 import baritone.cache.WorldProvider;
+import baritone.command.ExampleBaritoneControl;
 import baritone.command.manager.CommandManager;
 import baritone.event.GameEventHandler;
 import baritone.process.*;
@@ -116,6 +117,9 @@ public class Baritone implements IBaritone {
         this.worldProvider = new WorldProvider();
         this.selectionManager = new SelectionManager(this);
         this.commandManager = new CommandManager(this);
+
+        // set up chat controls with default prefix for this instance
+        new ExampleBaritoneControl(this);
     }
 
     @Override

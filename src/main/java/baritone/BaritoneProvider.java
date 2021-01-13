@@ -43,9 +43,6 @@ public final class BaritoneProvider implements IBaritoneProvider {
     {
         Baritone primary = new Baritone(PrimaryPlayerContext.INSTANCE);
         this.all.add(primary);
-
-        // Setup chat control, just for the primary instance
-        new ExampleBaritoneControl(primary);
     }
 
     // primary should just be whoever is being controlled
