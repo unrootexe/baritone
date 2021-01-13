@@ -38,7 +38,9 @@ public class MixinEntityRenderer {
             )
     )
     private void renderWorldPass(int pass, float partialTicks, long finishTimeNano, CallbackInfo ci) {
+        IBaritone primaryBaritone = BaritoneAPI.getProvider().getPrimaryBaritone();
         for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
+            if (BaritoneAPI.getSettings().renderPrimaryOnly.value && ibaritone != primaryBaritone) continue;
             ibaritone.getGameEventHandler().onRenderPass(new RenderEvent(partialTicks));
         }
     }

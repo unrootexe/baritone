@@ -609,6 +609,11 @@ public final class Settings {
     public final Setting<Float> goalRenderLineWidthPixels = new Setting<>(3F);
 
     /**
+     * Only display path foreshadowing for primary baritone
+     */
+    public final Setting<Boolean> renderPrimaryOnly = new Setting<>(true);
+
+    /**
      * Start fading out the path at 20 movements ahead, and stop rendering it entirely 30 movements ahead.
      * Improves FPS.
      */
