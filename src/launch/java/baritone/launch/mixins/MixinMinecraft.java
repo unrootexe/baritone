@@ -165,7 +165,9 @@ public class MixinMinecraft {
     )
     private void onBlockBreak(CallbackInfo ci, BlockPos pos) {
         // clickMouse is only for the main player
-        BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onBlockInteract(new BlockInteractEvent(pos, BlockInteractEvent.Type.START_BREAK));
+        if (BaritoneAPI.getProvider().getPrimaryBaritone() != null) {
+            BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onBlockInteract(new BlockInteractEvent(pos, BlockInteractEvent.Type.START_BREAK));
+        }
     }
 
     @Inject(
@@ -176,8 +178,10 @@ public class MixinMinecraft {
             ),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void onBlockUse(CallbackInfo ci, EnumHand var1[], int var2, int var3, EnumHand enumhand, ItemStack itemstack, BlockPos blockpos, int i, EnumActionResult enumactionresult) {
+    private void onBlockUse(CallbackInfo ci, EnumHand[] var1, int var2, int var3, EnumHand enumhand, ItemStack itemstack, BlockPos blockpos, int i, EnumActionResult enumactionresult) {
         // rightClickMouse is only for the main player
-        BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onBlockInteract(new BlockInteractEvent(blockpos, BlockInteractEvent.Type.USE));
+        if (BaritoneAPI.getProvider().getPrimaryBaritone() != null) {
+            BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onBlockInteract(new BlockInteractEvent(blockpos, BlockInteractEvent.Type.USE));
+        }
     }
 }
