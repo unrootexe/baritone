@@ -760,7 +760,7 @@ public final class BuilderProcess extends BaritoneProcessHelper implements IBuil
 
     @Override
     public String displayName0() {
-        return paused ? "Builder Paused" : "Building " + name;
+        return paused ? "Builder Paused" : "Building " + schematic.widthX() + "x" + schematic.heightY() + "x" + schematic.lengthZ() + " schematic";
     }
 
     private List<IBlockState> approxPlaceable(int size) {
