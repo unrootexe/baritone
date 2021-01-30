@@ -25,11 +25,9 @@ import baritone.api.schematic.ISchematicSystem;
 import baritone.cache.WorldScanner;
 import baritone.command.CommandSystem;
 import baritone.command.ExampleBaritoneControl;
-import baritone.utils.player.PrimaryPlayerContext;
 import baritone.utils.schematic.SchematicSystem;
-import net.minecraft.client.Minecraft;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,17 +36,20 @@ import java.util.List;
  */
 public final class BaritoneProvider implements IBaritoneProvider {
 
-    private final List<IBaritone> all = new ArrayList<>();
+    private final Baritone primary;
+    private final List<IBaritone> all;
 
     {
-        Baritone primary = new Baritone(PrimaryPlayerContext.INSTANCE);
-        this.all.add(primary);
+        this.primary = new Baritone();
+        this.all = Collections.singletonList(this.primary);
+
+        // Setup chat control, just for the primary instance
+        new ExampleBaritoneControl(this.primary);
     }
 
-    // primary should just be whoever is being controlled
     @Override
     public IBaritone getPrimaryBaritone() {
-        return getBaritoneForPlayer(Minecraft.getMinecraft().player);
+        return primary;
     }
 
     @Override
