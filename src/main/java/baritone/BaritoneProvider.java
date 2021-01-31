@@ -25,7 +25,6 @@ import baritone.api.schematic.ISchematicSystem;
 import baritone.cache.WorldScanner;
 import baritone.command.CommandSystem;
 import baritone.utils.player.PrimaryPlayerContext;
-import baritone.command.ExampleBaritoneControl;
 import baritone.utils.schematic.SchematicSystem;
 import net.minecraft.client.Minecraft;
 
